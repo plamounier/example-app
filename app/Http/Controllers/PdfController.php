@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Product_Tag;
 use App\Models\Tag;
+
 
 class PdfController extends Controller
 {
@@ -97,18 +99,14 @@ class PdfController extends Controller
 
     public function geraPdf()
     {
-
-
-        $tags=Tag::all();
+         $results = DB::select( DB::raw("SELECT t.name as tag, count(p.id) as produto FROM tag t inner join product_tag pt on t.id=pt.tag_id INNER join product p on pt.product_id = p.id group by t.name order by count(p.id) desc") );
+         $data = [          'title' => 'Sumarização',          
+                            'heading' => 'Sumarização Tag x Produto',          
+                            'content' => $results     
+         ];
        
-       
-        $listaprodutos=$this->objProduct->with('tag')->paginate(3);
-        //return View::make('products.index')
-         //      ->with('listaprodutos', $listaprodutos);
-
-        return \PDF::loadView('products.index', compact('tags', 'listaprodutos'))->setOptions(['defaultFont' => 'sans-serif'])
-                    // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
-                    ->download('relatorio-relevancia.pdf');
+        return \PDF::loadView('products/pdf_view', $data)
+        ->download('relatorio-relevancia.pdf');
     }
 
 }

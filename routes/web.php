@@ -68,6 +68,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('pdf', [App\Http\Controllers\PdfController::class, 'geraPdf'])->name('pdf');
 
+
 Route::resources([
     'products'=>ProductController::class,
     'tags'=>TagController::class,

@@ -151,18 +151,6 @@ class ProductController extends Controller
         return ($del)?"sim":"não";
     }
 
-    public function geraPdf()
-    {
-
-        $produto=$this->objProduct->find($id);
-
-        $tags=Tag::all();
-        $produto->load('tag');
-       
-        return \PDF::loadView('products.index', compact('tags', 'produto'))
-                    // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
-                    ->download('relatorio-relevancia.pdf');
-    }
 
 
 }
