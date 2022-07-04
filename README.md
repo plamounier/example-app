@@ -11,7 +11,7 @@ Projeto criado para avaliar habilidades de desenvolvimento Back-End e Front-End 
 - [Framework Laravel 8.77.1](https://laravel.com/docs/8.x).
 
 ## Como usar
-- Possui __wamp__ instalado na máquina.
+- Possuir __wamp__ instalado na máquina.
 - Iniciar o Wamp na máquina
 - Possuir __composer__ instalado na máquina 
 - Clonar o repository com __git clone__
